@@ -22,7 +22,7 @@ interface InstallTagInterface {
 const InstallTag = ({ connectionStatus, setConnectionStatus, handleStep }: InstallTagInterface) => {
   const [loading, setLoading] = useState(false)
   const getButtonText = () => {
-    return !!connectionStatus === false ? "Try Again" : "Test Connection";
+    return connectionStatus === false ? "Try Again" : "Test Connection";
   };
 
   const copyToClipboard = (textToCopy: string) => {
@@ -52,7 +52,7 @@ const InstallTag = ({ connectionStatus, setConnectionStatus, handleStep }: Insta
         const resJson = await res.json()
         setConnectionStatus(resJson.success)
         if(resJson.success){
-          localStorage.setItem("script_connected", resJson.success)
+          localStorage.setItem("script_connected", Boolean(resJson.success))
           toast.success("Success: Connected Successfully")
         }else{
           toast.error("Error: Not able to connect")
@@ -99,7 +99,7 @@ const InstallTag = ({ connectionStatus, setConnectionStatus, handleStep }: Insta
             <span>Connected successfully</span>
           </div>
         }
-        {!!connectionStatus === false &&
+        {connectionStatus === false &&
           <div className="flex items-center gap-4 bg-red-100 text-gray-600 rounded px-4 py-2 m-4">
             <ImageContainer icon={warningRedIcon} />
             <div className="flex flex-col">
@@ -113,9 +113,9 @@ const InstallTag = ({ connectionStatus, setConnectionStatus, handleStep }: Insta
           </div>
         }
       </div>
-      {!connectionStatus &&
+      {connectionStatus === null &&
         <button className={`cursor-pointer self-end p-3 m-3 rounded-md ${loading ? "bg-gray-300 text-gray-700" : "bg-blue-600 text-white"}`} onClick={handleTestConnection}>{getButtonText()}</button>}
-      {!!connectionStatus === true &&
+      {connectionStatus === true &&
         <button className={`cursor-pointer self-end p-3 m-3 rounded-md  bg-blue-600 text-white`} onClick={() => handleStep("test")}>Next Step</button>}
     </div>
   );

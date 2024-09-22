@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageContainer from './ImageContainer';
 import Sidebar from './Sidebar';
 import checkIcon from "../../assets/Icons/check.svg"
@@ -19,12 +19,19 @@ interface TagItemInterface {
 const Onboarding = () => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [showStep, setShowStep] = useState("")
-  const connectionLocalStatus = localStorage.getItem("script_connected") || null;
-  const [connectionStatus, setConnectionStatus] = useState(connectionLocalStatus || null)
-
+  const [connectionStatus, setConnectionStatus] = useState<boolean | null>(null)
+  
   const handleShowSidebar = () => {
     setShowSidebar(!showSidebar)
   }
+
+  useEffect(()=> {
+    const status = localStorage.getItem("script_connected");
+    console.log(status)
+    if(status){
+      setConnectionStatus(status)
+    }
+  },[])
 
   const handleStep = (value: string) => {
     if (!connectionStatus && value === "test") {
@@ -41,7 +48,7 @@ const Onboarding = () => {
       title: "Install the Surface Tag",
       text: "Enable tracking and analytics",
       buttonText: "Install Tag",
-      styles: "bg-blue-600",
+      styles: "bg-blue-600 text-white",
       children: <InstallTag connectionStatus={connectionStatus} setConnectionStatus={setConnectionStatus} handleStep={handleStep} />,
     },
     {
@@ -49,7 +56,7 @@ const Onboarding = () => {
       title: "Test Surface Tag Events",
       text: "Test if the Surface Tag is properly installed and emitting events.",
       buttonText: "Test Tag",
-      styles: "bg-gray-100 text-gray-800",
+      styles: "bg-gray-100",
       icon: checkIcon,
       children: <TestTag />,
     }

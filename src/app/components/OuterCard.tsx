@@ -28,7 +28,7 @@ const OuterCard = ({ title, text, buttonText, children, styles, handleStep, show
                         <p className="text-gray-600">{text}</p>
                     </div>
                 </div>
-                {!showStep && <button className={`float-right rounded ${styles} text-white px-4 py-2`} >{buttonText}</button>}
+                {!showStep && <button className={`float-right rounded ${styles} px-4 py-2`} >{buttonText}</button>}
             </div>
             {showStep === value ?
                 children : <></>}
