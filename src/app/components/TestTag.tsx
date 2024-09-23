@@ -39,7 +39,7 @@ const TestTag = () => {
     }, [])
 
     return (
-        <div className="flex flex-col overflow-x-auto my-8 mx-2">
+        <div className="flex flex-col overflow-x-auto my-8">
             <table className="min-w-full divide-y divide-gray-200 py-4 border rounded-xl">
                 <thead>
                     <tr>

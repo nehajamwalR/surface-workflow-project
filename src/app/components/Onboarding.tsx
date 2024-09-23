@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import ImageContainer from './ImageContainer';
 import Sidebar from './Sidebar';
-import checkIcon from "../../assets/Icons/check.svg"
 import menuIcon from "../../assets/Icons/menu.svg"
 import InstallTag from './InstallTag';
 import OuterCard from './OuterCard';
 import TestTag from './TestTag';
+import { CARDS_DATA } from '~/constants';
 
 interface TagItemInterface {
   value: string,
@@ -14,24 +14,22 @@ interface TagItemInterface {
   text: string,
   buttonText: string,
   styles?: string,
-  icon?: any,
 }
 const Onboarding = () => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [showStep, setShowStep] = useState("")
   const [connectionStatus, setConnectionStatus] = useState<boolean | null>(null)
-  
+
   const handleShowSidebar = () => {
     setShowSidebar(!showSidebar)
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     const status = localStorage.getItem("script_connected");
-    console.log(status)
-    if(status){
-      setConnectionStatus(status)
+    if (status) {
+      setConnectionStatus(Boolean(status))
     }
-  },[])
+  }, [])
 
   const handleStep = (value: string) => {
     if (!connectionStatus && value === "test") {
@@ -41,26 +39,6 @@ const Onboarding = () => {
     }
     setShowStep(value)
   }
-
-  const CARDS_DATA = [
-    {
-      value: "install",
-      title: "Install the Surface Tag",
-      text: "Enable tracking and analytics",
-      buttonText: "Install Tag",
-      styles: "bg-blue-600 text-white",
-      children: <InstallTag connectionStatus={connectionStatus} setConnectionStatus={setConnectionStatus} handleStep={handleStep} />,
-    },
-    {
-      value: "test",
-      title: "Test Surface Tag Events",
-      text: "Test if the Surface Tag is properly installed and emitting events.",
-      buttonText: "Test Tag",
-      styles: "bg-gray-100",
-      icon: checkIcon,
-      children: <TestTag />,
-    }
-  ]
 
   return (
     <div className="flex h-screen bg-white">
@@ -76,13 +54,15 @@ const Onboarding = () => {
         <div className="w-full p-8">
           <div className="sm:hidden float-left" onClick={handleShowSidebar}>
             <ImageContainer icon={menuIcon} size={30} /></div>
-          <h2 className="text-3xl font-bold pb-6 mb-4 border-b-2 text-center">Getting started</h2>
+          <h2 className="text-3xl font-bold pb-6 mb-4 border-b-2 text-center sm:text-start">Getting started</h2>
           {CARDS_DATA.map((item: TagItemInterface) => (
             <OuterCard
               key={item.value}
+              children={showStep === "install" ? <InstallTag connectionStatus={connectionStatus} setConnectionStatus={setConnectionStatus} handleStep={handleStep} /> : <TestTag />}
               connectionStatus={connectionStatus}
               showStep={showStep}
-              handleStep={handleStep} {...item} />
+              handleStep={handleStep}
+              {...item} />
           ))}
         </div>
       </main>

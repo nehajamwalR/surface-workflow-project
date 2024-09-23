@@ -1,6 +1,22 @@
 export const SITE_ID = "njkw746jhs$jhe8";
 export const TABLE_HEADERS = ["Event", "Visitor", "MetaData", "Created At"]
 export const AVATAR = "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+export const CARDS_DATA = [
+    {
+      value: "install",
+      title: "Install the Surface Tag",
+      text: "Enable tracking and analytics",
+      buttonText: "Install Tag",
+      styles: "bg-blue-600 text-white",
+    },
+    {
+      value: "test",
+      title: "Test Surface Tag Events",
+      text: "Test if the Surface Tag is properly installed and emitting events.",
+      buttonText: "Test Tag",
+      styles: "bg-gray-100"
+    }
+  ]
 export const SCRIPT = `
 (function () {
   const siteId = 'njkw746jhs$jhe8'

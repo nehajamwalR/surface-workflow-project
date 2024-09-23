@@ -36,7 +36,7 @@ const Sidebar = ({ handleCloseClick = () => { } }) => {
                     <ImageContainer icon={closeIcon} size={30} />
                 </div>
             </div>
-            <div className="px-2 py-3 border-b-2 border-t-2">
+            <div className="px-2 py-5 border-b-2 border-t-2">
                 <button className="cursor-pointer flex items-center justify-between w-full text-left">
                     <div className="flex items-center gap-4">
                         <ImageContainer icon={userIcon} />
@@ -51,7 +51,7 @@ const Sidebar = ({ handleCloseClick = () => { } }) => {
                 <a href="#" className="px-2 text-sm font-medium">Account</a>
                 <a href="#" className="px-2 text-sm font-medium">Logout</a>
             </div> : <></>}
-            <div className="border-b-2 py-2 px-1">
+            <div className="border-b-2 py-3 px-1">
                 <a href="#" className="text-md font-medium text-white">
                     <div className="flex bg-gray-900 p-2 rounded items-center gap-4">
                         <span className="h-4 w-4 rounded-full border-white border-2"></span>
@@ -60,7 +60,7 @@ const Sidebar = ({ handleCloseClick = () => { } }) => {
                 </a>
             </div>
             {sideBarOptions.map((item, index) => (
-                <a key={index} href="#" className="flex gap-4 items-center px-2 py-3 text-md font-medium text-neutral-400">
+                <a key={index} href="#" className="flex gap-4 items-center px-2 py-5 text-md font-medium text-neutral-400">
                     {item.icon}
                     <p className="font-semibold">{item.label}</p>
 

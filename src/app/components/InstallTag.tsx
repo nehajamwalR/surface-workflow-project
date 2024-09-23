@@ -52,7 +52,7 @@ const InstallTag = ({ connectionStatus, setConnectionStatus, handleStep }: Insta
         const resJson = await res.json()
         setConnectionStatus(resJson.success)
         if(resJson.success){
-          localStorage.setItem("script_connected", Boolean(resJson.success))
+          localStorage.setItem("script_connected", resJson.success)
           toast.success("Success: Connected Successfully")
         }else{
           toast.error("Error: Not able to connect")
@@ -115,7 +115,7 @@ const InstallTag = ({ connectionStatus, setConnectionStatus, handleStep }: Insta
       </div>
       {connectionStatus === null &&
         <button className={`cursor-pointer self-end p-3 m-3 rounded-md ${loading ? "bg-gray-300 text-gray-700" : "bg-blue-600 text-white"}`} onClick={handleTestConnection}>{getButtonText()}</button>}
-      {connectionStatus === true &&
+      {connectionStatus &&
         <button className={`cursor-pointer self-end p-3 m-3 rounded-md  bg-blue-600 text-white`} onClick={() => handleStep("test")}>Next Step</button>}
     </div>
   );
